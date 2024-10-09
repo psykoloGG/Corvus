@@ -1,0 +1,40 @@
+#pragma once
+
+#include "CoreMinimal.h"
+#include "Interactable.h"
+#include "GameFramework/PlayerController.h"
+#include "CorvusPlayerController.generated.h"
+
+/**
+ * Class controls camera behavior, mouse moves and clicks
+ */
+UCLASS()
+class CORVUS_API ACorvusPlayerController : public APlayerController
+{
+	GENERATED_BODY()
+
+public:
+	ACorvusPlayerController();
+
+	UFUNCTION()
+	void OpenObjectViewer(const AInteractable* Interactable);
+
+	// Called when map gets loaded (aka begin play for level)
+	UFUNCTION(BlueprintCallable)
+	void SetupForLevel();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<class ACameraActor*> PossessedCameras;
+
+	// Raycasting for highlighting objects
+	UPROPERTY()
+	bool bShouldRaycast = false;
+
+
+private:
+	UPROPERTY()
+	TSubclassOf<UUserWidget> ObjectViewerWidgetClass;
+	
+	UPROPERTY()
+	class UObjectViewerWidget* ObjectViewerWidgetInstance = nullptr;
+};
