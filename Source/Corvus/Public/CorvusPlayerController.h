@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Interactable.h"
+#include "Interactables/Interactable.h"
 #include "GameFramework/PlayerController.h"
 #include "CorvusPlayerController.generated.h"
 
