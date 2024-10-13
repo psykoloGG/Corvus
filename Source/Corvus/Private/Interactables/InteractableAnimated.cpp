@@ -1,5 +1,8 @@
 #include "Interactables/InteractableAnimated.h"
 
+#include "LevelSequencePlayer.h"
+#include "LevelSequenceActor.h"
+
 AInteractableAnimated::AInteractableAnimated()
 {
 	
@@ -7,5 +10,21 @@ AInteractableAnimated::AInteractableAnimated()
 
 void AInteractableAnimated::OnInteracted(AActor* TouchedActor, FKey ButtonPressed)
 {
-	//TO DO: Implement animated functionality
+	if (bInteracted)
+	{
+		return;
+	}
+	
+	ALevelSequenceActor* LevelSequenceActor;
+	FMovieSceneSequencePlaybackSettings Settings;
+	Settings.bAutoPlay = false;
+	Settings.bPauseAtEnd = true;
+	
+	ULevelSequencePlayer* SequencePlayer = ULevelSequencePlayer::CreateLevelSequencePlayer(GetWorld(), AnimationSequence, Settings, LevelSequenceActor);
+	if (SequencePlayer)
+	{
+		SequencePlayer->Play();
+	}
+
+	bInteracted = true;
 }

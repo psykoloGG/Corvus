@@ -18,13 +18,14 @@ public:
 	UFUNCTION()
 	virtual void OnInteracted(AActor* TouchedActor, FKey ButtonPressed);
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interactable")
-	UStaticMeshComponent* StaticMeshComponent;
-
 	// Item name used for list of objectives
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interactable")
 	FString Name;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interactable")
 	FString Description;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Interactable")
+	UStaticMeshComponent* StaticMeshComponent;
+
 };

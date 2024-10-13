@@ -33,7 +33,6 @@ FReply UObjectViewerWidget::NativeOnMouseMove(const FGeometry& InGeometry, const
 {
 	if (bMouseDown)
 	{
-		UE_LOG(LogTemp , Warning, TEXT("Mouse moved"));
 		FVector2D CurrentMousePosition = InMouseEvent.GetScreenSpacePosition();
 		FVector2D Delta = CurrentMousePosition - PreviousMousePosition;
 		ViewableObj->RotateSpringArm(Delta.X, -Delta.Y);
