@@ -1,5 +1,6 @@
 #include "ObjectViewer/ObjectViewerWidget.h"
 
+#include "Interactables/Interactable.h"
 #include "ObjectViewer/ViewableObject.h"
 
 void UObjectViewerWidget::NativeConstruct()
@@ -8,10 +9,11 @@ void UObjectViewerWidget::NativeConstruct()
 
 	ViewableObj = GetWorld()->SpawnActor<AViewableObject>(AViewableObject::StaticClass());
 	ViewableObj->SetActorLocation(FVector(0.0f, 0.0f, -10000.0f));
-	ViewableObj->ObjectMesh->SetStaticMesh(ObjectMesh);
+	ViewableObj->ObjectMeshComponent->SetStaticMesh(InteractableObject->StaticMeshComponent->GetStaticMesh());
+	ViewableObj->ObjectMeshComponent->SetRelativeScale3D(InteractableObject->StaticMeshComponent->GetRelativeScale3D());
 
-	float Size = ViewableObj->ObjectMesh->GetStaticMesh()->GetBoundingBox().GetSize().Size();
-	ViewableObj->SpringArm->TargetArmLength = Size * 1.5f;
+	SizeFactor = InteractableObject->GetComponentsBoundingBox().GetExtent().GetMax();
+	ViewableObj->SpringArm->TargetArmLength = SizeFactor * 2;
 }
 
 FReply UObjectViewerWidget::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
@@ -43,6 +45,6 @@ FReply UObjectViewerWidget::NativeOnMouseMove(const FGeometry& InGeometry, const
 FReply UObjectViewerWidget::NativeOnMouseWheel(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
 	float WheelDelta = InMouseEvent.GetWheelDelta();
-	ViewableObj->ZoomInObject(-WheelDelta);
+	ViewableObj->ZoomInObject(-WheelDelta * (SizeFactor / 10));
 	return FReply::Handled();
 }

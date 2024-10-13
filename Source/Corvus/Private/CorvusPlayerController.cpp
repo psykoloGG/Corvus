@@ -23,7 +23,7 @@ void ACorvusPlayerController::OpenObjectViewer(const AInteractable* Interactable
 	if (ObjectViewerWidgetClass)
 	{
 		ObjectViewerWidgetInstance = CreateWidget<UObjectViewerWidget>(this, ObjectViewerWidgetClass);
-		ObjectViewerWidgetInstance->ObjectMesh = Interactable->StaticMesh->GetStaticMesh();
+		ObjectViewerWidgetInstance->InteractableObject = Interactable;
 		if (ObjectViewerWidgetInstance)
 		{
 			ObjectViewerWidgetInstance->AddToViewport();

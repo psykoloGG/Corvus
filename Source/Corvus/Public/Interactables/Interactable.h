@@ -19,7 +19,7 @@ public:
 	virtual void OnInteracted(AActor* TouchedActor, FKey ButtonPressed);
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interactable")
-	UStaticMeshComponent* StaticMesh;
+	UStaticMeshComponent* StaticMeshComponent;
 
 	// Item name used for list of objectives
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interactable")

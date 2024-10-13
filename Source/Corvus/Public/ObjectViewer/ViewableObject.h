@@ -20,7 +20,7 @@ public:
 	USpringArmComponent* SpringArm;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UStaticMeshComponent* ObjectMesh;
+	UStaticMeshComponent* ObjectMeshComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	USceneCaptureComponent2D* SceneCapture;

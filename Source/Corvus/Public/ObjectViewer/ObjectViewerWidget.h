@@ -4,6 +4,7 @@
 #include "Blueprint/UserWidget.h"
 #include "ObjectViewerWidget.generated.h"
 
+class AInteractable;
 /**
  * 
  */
@@ -31,8 +32,9 @@ private:
 	class AViewableObject* ViewableObj;
 
 	UPROPERTY()
-	float AverageScaleFactor = 1.0f;
+	float SizeFactor = 1.0f;
+	
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UStaticMesh* ObjectMesh;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	const AInteractable* InteractableObject;
 };

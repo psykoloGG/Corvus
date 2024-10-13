@@ -5,11 +5,11 @@
 
 AViewableObject::AViewableObject()
 {
-	ObjectMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
-	RootComponent = ObjectMesh;
+	ObjectMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
+	RootComponent = ObjectMeshComponent;
 
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
-	SpringArm->SetupAttachment(ObjectMesh);
+	SpringArm->SetupAttachment(ObjectMeshComponent);
 	SpringArm->SetRelativeRotation(FRotator(-45.0f, 0.0f, 0.0f));
 	SpringArm->bInheritPitch = false;
 	SpringArm->bInheritYaw = false;
@@ -18,7 +18,7 @@ AViewableObject::AViewableObject()
 	SceneCapture = CreateDefaultSubobject<USceneCaptureComponent2D>(TEXT("CameraComponent"));
 	SceneCapture->SetupAttachment(SpringArm);
 	// Make this dependent on the mesh size
-	SceneCapture->ShowOnlyComponent(ObjectMesh);
+	SceneCapture->ShowOnlyComponent(ObjectMeshComponent);
 	SceneCapture->CustomNearClippingPlane = 0.0001f;
 	SceneCapture->bOverride_CustomNearClippingPlane = true;
 	

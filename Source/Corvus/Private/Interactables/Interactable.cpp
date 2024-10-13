@@ -2,8 +2,8 @@
 
 AInteractable::AInteractable()
 {
-    StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
-    RootComponent = StaticMesh;
+    StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
+    RootComponent = StaticMeshComponent;
 
     OnClicked.AddDynamic(this, &AInteractable::OnInteracted);
 }
