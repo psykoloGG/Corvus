@@ -11,6 +11,11 @@ void UObjectViewerWidget::NativeConstruct()
 	ViewableObj->SetActorLocation(FVector(0.0f, 0.0f, -10000.0f));
 	ViewableObj->ObjectMeshComponent->SetStaticMesh(InteractableObject->StaticMeshComponent->GetStaticMesh());
 	ViewableObj->ObjectMeshComponent->SetRelativeScale3D(InteractableObject->StaticMeshComponent->GetRelativeScale3D());
+	auto StaticMeshMats = ViewableObj->ObjectMeshComponent->GetMaterials();
+	for (int i = 0; i < StaticMeshMats.Num(); i++)
+    {
+        ViewableObj->ObjectMeshComponent->SetMaterial(i, InteractableObject->StaticMeshComponent->GetMaterial(i));
+    }
 
 	SizeFactor = InteractableObject->GetComponentsBoundingBox().GetExtent().GetMax();
 	ViewableObj->SpringArm->TargetArmLength = SizeFactor * 2;
