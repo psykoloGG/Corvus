@@ -39,4 +39,10 @@ private:
 	
 	UPROPERTY()
 	class UObjectViewerWidget* ObjectViewerWidgetInstance = nullptr;
+
+	UPROPERTY()
+	TSubclassOf<UUserWidget> MenusWidgetClass;
+
+	UPROPERTY()
+	class UMenusWidget* MenusWidgetInstance = nullptr;
 };

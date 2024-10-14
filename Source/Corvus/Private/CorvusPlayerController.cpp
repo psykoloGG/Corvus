@@ -2,11 +2,18 @@
 
 #include "Blueprint/UserWidget.h"
 #include "Camera/CameraActor.h"
+#include "Menus/MenusWidget.h"
 #include "ObjectViewer/ObjectViewerWidget.h"
 
 void ACorvusPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
+	if (!MenusWidgetInstance)
+	{
+		/*MenusWidgetInstance = CreateWidget<UMenusWidget>(this, MenusWidgetClass);
+		MenusWidgetInstance->AddToViewport();
+		MenusWidgetInstance->TransitionIn();*/
+	}
 }
 
 ACorvusPlayerController::ACorvusPlayerController()
@@ -20,6 +27,12 @@ ACorvusPlayerController::ACorvusPlayerController()
 	if (ObjectViewerWidgetClassFinder.Succeeded())
 	{
 		ObjectViewerWidgetClass = ObjectViewerWidgetClassFinder.Class;
+	}
+
+	static ConstructorHelpers::FClassFinder<UMenusWidget> MenusWidgetClassFinder(TEXT("/Game/UI/Menus/WBP_MenusWidget"));
+	if (MenusWidgetClassFinder.Succeeded())
+	{
+		MenusWidgetClass = MenusWidgetClassFinder.Class;
 	}
 }
 

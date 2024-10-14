@@ -15,5 +15,33 @@ protected:
 	virtual void NativeConstruct() override;
 	
 public:
+	UFUNCTION()
+	void TransitionToMainMenu();
+
+	UFUNCTION()
+	void TransitionToGame();
+	
+	UFUNCTION()
+	void TransitionIn();
+
+	UFUNCTION()
+	void TransitionOut();
+
+	UFUNCTION()
+	void FadeInFinished();
+
+	UFUNCTION()
+	void FadeOutFinished();
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UWidgetAnimation* FadeInAnimation;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UWidgetAnimation* FadeOutAnimation;
+
+	FWidgetAnimationDynamicEvent OnFadeInFinished;
+	FWidgetAnimationDynamicEvent OnFadeOutFinished;
+
+private:
 	
 };
