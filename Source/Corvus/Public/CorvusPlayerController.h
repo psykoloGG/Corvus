@@ -12,7 +12,10 @@ UCLASS()
 class CORVUS_API ACorvusPlayerController : public APlayerController
 {
 	GENERATED_BODY()
-
+	
+protected:
+	virtual void BeginPlay() override;
+	
 public:
 	ACorvusPlayerController();
 
@@ -30,11 +33,28 @@ public:
 	UPROPERTY()
 	bool bShouldRaycast = false;
 
+	UFUNCTION()
+	void TransitionIn();
+
+	UFUNCTION()
+	void TransitionOut();
 
 private:
 	UPROPERTY()
 	TSubclassOf<UUserWidget> ObjectViewerWidgetClass;
+
+	UPROPERTY()
+	TSubclassOf<UUserWidget> TitleScreenClass;
+
+	UPROPERTY()
+	TSubclassOf<UUserWidget> TransitionWidgetClass;
 	
 	UPROPERTY()
 	class UObjectViewerWidget* ObjectViewerWidgetInstance = nullptr;
+
+	UPROPERTY()
+	class UTitleScreenWidget* TitleScreenWidgetInstance = nullptr;
+
+	UPROPERTY()
+	class UTransitionWidget* TransitionWidgetInstance = nullptr;
 };
