@@ -80,8 +80,10 @@ void UMenusWidget::TransitionToLevel()
 void UMenusWidget::TriggeredWinScreen()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Triggered Win Screen"));
+	AddToViewport();
+	SetVisibility(ESlateVisibility::Visible);
 	UnbindAnimationDelegates();
-	OnFadeOutFinished.BindDynamic(this, &UMenusWidget::TransitionToLevel);
+	OnFadeOutFinished.BindDynamic(this, &UMenusWidget::TransitionToWinScreen);
 	RebindAnimations();
 	TransitionOut();
 }
@@ -94,6 +96,7 @@ void UMenusWidget::OnMediaOpened(FString OpenedUrl)
 
 void UMenusWidget::TransitionToWinScreen()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Transitioning to Win Screen"));
 	WinScreenImage->SetVisibility(ESlateVisibility::Visible);
 	UMediaSource* MediaSource = LoadObject<UMediaSource>(nullptr, TEXT("/Game/UI/Menus/Graphics/Bench_Scene"));
 	WinMediaPlayer->OpenSource(MediaSource);
@@ -107,6 +110,7 @@ void UMenusWidget::TransitionIn()
 
 void UMenusWidget::TransitionOut()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Transitioning Out"));
 	PlayAnimation(FadeOutAnimation);
 }
 

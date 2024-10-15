@@ -44,7 +44,7 @@ void UCorvusGameInstance::Init()
 {
 	Super::Init();
 
-	UGameViewportClient::OnViewportCreated().AddLambda([this]()
+	/*UGameViewportClient::OnViewportCreated().AddLambda([this]()
 	{
 		if (!MenusWidgetInstance && MenusWidgetClass)
 		{
@@ -53,5 +53,5 @@ void UCorvusGameInstance::Init()
 			MenusWidgetInstance->AddToViewport();
 			MenusWidgetInstance->TransitionIn();
 		}	
-	});
+	});*/
 }
