@@ -1,5 +1,7 @@
 #include "Interactables/InteractableObjective.h"
 
+#include "CorvusGameInstance.h"
+
 AInteractableObjective::AInteractableObjective()
 {
 	
@@ -7,5 +9,6 @@ AInteractableObjective::AInteractableObjective()
 
 void AInteractableObjective::OnInteracted(AActor* TouchedActor, FKey ButtonPressed)
 {
-	//TO DO: Implement objective functionality
+	UCorvusGameInstance* GameInstance = Cast<UCorvusGameInstance>(GetGameInstance());
+	GameInstance->TriggerLevelWin();
 }

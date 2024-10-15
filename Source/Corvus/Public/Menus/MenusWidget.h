@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/Overlay.h"
+#include "Runtime/MediaAssets/Public/MediaPlayer.h"
 #include "MenusWidget.generated.h"
 
 class UImage;
@@ -23,6 +24,10 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void TitleScreenClicked();
 
+	// For demo purposes default to level 1  
+	UFUNCTION(BlueprintCallable)
+	void LevelButtonClicked();
+
 
 	UFUNCTION()
 	void TransitionToMainMenu();
@@ -30,7 +35,20 @@ public:
 	UFUNCTION()
 	void TransitionToLevelSelector();
 
+	UFUNCTION()
+	void TransitionToLevel();
+
+	UFUNCTION()
+	void TriggeredWinScreen();
+
+	UFUNCTION()
+	void OnMediaOpened(FString OpenedUrl);
 	
+	UFUNCTION()
+	void TransitionToWinScreen();
+
+	
+	// Transitions
 	UFUNCTION()
 	void TransitionIn();
 
@@ -57,6 +75,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UOverlay* LevelSelectorOverlay;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UImage* WinScreenImage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UMediaPlayer* WinMediaPlayer;
 
 private:
 	void RebindAnimations();

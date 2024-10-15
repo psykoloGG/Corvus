@@ -16,5 +16,4 @@ public:
 	AInteractableViewable();
 	
 	virtual void OnInteracted(AActor* TouchedActor, FKey ButtonPressed) override;
-	
 };

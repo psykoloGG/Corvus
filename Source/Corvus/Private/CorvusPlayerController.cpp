@@ -8,12 +8,7 @@
 void ACorvusPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	if (!MenusWidgetInstance)
-	{
-		MenusWidgetInstance = CreateWidget<UMenusWidget>(this, MenusWidgetClass);
-		MenusWidgetInstance->AddToViewport();
-		MenusWidgetInstance->TransitionIn();
-	}
+	
 }
 
 ACorvusPlayerController::ACorvusPlayerController()
@@ -23,30 +18,6 @@ ACorvusPlayerController::ACorvusPlayerController()
 	bEnableClickEvents = true;
 
 	PossessedCameras = TArray<ACameraActor*>();
-	static ConstructorHelpers::FClassFinder<UObjectViewerWidget> ObjectViewerWidgetClassFinder(TEXT("/Game/UI/ObjectViewer/WBP_ObjectViewer"));
-	if (ObjectViewerWidgetClassFinder.Succeeded())
-	{
-		ObjectViewerWidgetClass = ObjectViewerWidgetClassFinder.Class;
-	}
-
-	static ConstructorHelpers::FClassFinder<UMenusWidget> MenusWidgetClassFinder(TEXT("/Game/UI/Menus/WBP_MenusWidget"));
-	if (MenusWidgetClassFinder.Succeeded())
-	{
-		MenusWidgetClass = MenusWidgetClassFinder.Class;
-	}
-}
-
-void ACorvusPlayerController::OpenObjectViewer(const AInteractable* Interactable)
-{
-	if (ObjectViewerWidgetClass)
-	{
-		ObjectViewerWidgetInstance = CreateWidget<UObjectViewerWidget>(this, ObjectViewerWidgetClass);
-		ObjectViewerWidgetInstance->InteractableObject = Interactable;
-		if (ObjectViewerWidgetInstance)
-		{
-			ObjectViewerWidgetInstance->AddToViewport();
-		}
-	}
 }
 
 void ACorvusPlayerController::SetupForLevel()
