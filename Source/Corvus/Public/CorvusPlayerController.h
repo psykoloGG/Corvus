@@ -19,9 +19,6 @@ protected:
 public:
 	ACorvusPlayerController();
 
-	UFUNCTION()
-	void OpenObjectViewer(const AInteractable* Interactable);
-
 	// Called when map gets loaded (aka begin play for level)
 	UFUNCTION(BlueprintCallable)
 	void SetupForLevel();
@@ -32,17 +29,4 @@ public:
 	// Raycasting for highlighting objects
 	UPROPERTY()
 	bool bShouldRaycast = false;
-
-private:
-	UPROPERTY()
-	TSubclassOf<UUserWidget> ObjectViewerWidgetClass;
-	
-	UPROPERTY()
-	class UObjectViewerWidget* ObjectViewerWidgetInstance = nullptr;
-
-	UPROPERTY()
-	TSubclassOf<UUserWidget> MenusWidgetClass;
-
-	UPROPERTY()
-	class UMenusWidget* MenusWidgetInstance = nullptr;
 };
