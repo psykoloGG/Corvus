@@ -10,9 +10,9 @@ void ACorvusPlayerController::BeginPlay()
 	Super::BeginPlay();
 	if (!MenusWidgetInstance)
 	{
-		/*MenusWidgetInstance = CreateWidget<UMenusWidget>(this, MenusWidgetClass);
+		MenusWidgetInstance = CreateWidget<UMenusWidget>(this, MenusWidgetClass);
 		MenusWidgetInstance->AddToViewport();
-		MenusWidgetInstance->TransitionIn();*/
+		MenusWidgetInstance->TransitionIn();
 	}
 }
 

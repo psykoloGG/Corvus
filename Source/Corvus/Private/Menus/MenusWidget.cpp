@@ -1,31 +1,58 @@
 #include "Menus/MenusWidget.h"
 
+#include "Components/Image.h"
+
 void UMenusWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	if (FadeInAnimation)
+	if (TransitionImage)
 	{
-		BindToAnimationFinished(FadeInAnimation, OnFadeInFinished);
+		TransitionImage->SetVisibility(ESlateVisibility::HitTestInvisible);
 	}
 
-	if (FadeOutAnimation)
+	if (MainMenuOverlay)
 	{
-		BindToAnimationFinished(FadeOutAnimation, OnFadeOutFinished);
+		MainMenuOverlay->SetVisibility(ESlateVisibility::Hidden);
 	}
 
-	OnFadeInFinished.BindDynamic(this, &UMenusWidget::FadeInFinished);
-	OnFadeOutFinished.BindDynamic(this, &UMenusWidget::FadeOutFinished);
+	if (LevelSelectorOverlay)
+	{
+		LevelSelectorOverlay->SetVisibility(ESlateVisibility::Hidden);
+	}
 }
 
+// Triggers transition to main menu
+void UMenusWidget::TitleScreenClicked()
+{
+	OnFadeOutFinished.BindDynamic(this, &UMenusWidget::TransitionToMainMenu);
+	RebindAnimations();
+	TransitionOut();
+}
+
+// Transitioned to main menu
 void UMenusWidget::TransitionToMainMenu()
 {
-	
+	MainMenuOverlay->SetVisibility(ESlateVisibility::Visible);
+	TitleScreenImage->SetVisibility(ESlateVisibility::Hidden);
+	TransitionIn();
 }
 
-void UMenusWidget::TransitionToGame()
+void UMenusWidget::MainMenuPlayButtonClicked()
 {
+	UnbindAnimationDelegates();
+	OnFadeOutFinished.BindDynamic(this, &UMenusWidget::TransitionToLevelSelector);
+	RebindAnimations();
+	TransitionOut();
 }
+
+void UMenusWidget::TransitionToLevelSelector()
+{
+	MainMenuOverlay->SetVisibility(ESlateVisibility::Hidden);
+	LevelSelectorOverlay->SetVisibility(ESlateVisibility::Visible);
+	TransitionIn();
+}
+
 
 void UMenusWidget::TransitionIn()
 {
@@ -37,12 +64,24 @@ void UMenusWidget::TransitionOut()
 	PlayAnimation(FadeOutAnimation);
 }
 
-void UMenusWidget::FadeInFinished()
+void UMenusWidget::RebindAnimations()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Fade in finished"));
+	UnbindAllFromAnimationFinished(FadeInAnimation);
+	UnbindAllFromAnimationFinished(FadeOutAnimation);
+	
+	if (FadeInAnimation)
+	{
+		BindToAnimationFinished(FadeInAnimation, OnFadeInFinished);
+	}
+
+	if (FadeOutAnimation)
+	{
+		BindToAnimationFinished(FadeOutAnimation, OnFadeOutFinished);
+	}
 }
 
-void UMenusWidget::FadeOutFinished()
+void UMenusWidget::UnbindAnimationDelegates()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Fade out finished"));
+	OnFadeOutFinished.Unbind();
+	OnFadeInFinished.Unbind();
 }
