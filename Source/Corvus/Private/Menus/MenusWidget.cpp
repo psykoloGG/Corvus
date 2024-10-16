@@ -72,7 +72,7 @@ void UMenusWidget::LevelButtonClicked()
 void UMenusWidget::TransitionToLevel()
 {
 	LevelSelectorOverlay->SetVisibility(ESlateVisibility::Hidden);
-	UGameplayStatics::OpenLevel(GetWorld(), "Level1");
+	UGameplayStatics::OpenLevel(GetWorld(), "/Game/Levels/Level1/Level1");
 	TransitionIn();
 }
 

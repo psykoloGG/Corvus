@@ -33,9 +33,9 @@ public:
 
 	UFUNCTION()
 	void TriggerLevelWin();
-	
-protected:
-	virtual void Init() override;
+
+	UFUNCTION()
+	void InitMainUI();
 	
 private:
 	UPROPERTY()

@@ -61,18 +61,13 @@ void UCorvusGameInstance::TriggerLevelWin()
 	}
 }
 
-void UCorvusGameInstance::Init()
+void UCorvusGameInstance::InitMainUI()
 {
-	Super::Init();
-
-	UGameViewportClient::OnViewportCreated().AddLambda([this]()
+	if (!MenusWidgetInstance && MenusWidgetClass)
 	{
-		if (!MenusWidgetInstance && MenusWidgetClass)
-		{
-			UE_LOG(LogTemp, Warning, TEXT("No menus widget instance found, creating one"));
-			MenusWidgetInstance = CreateWidget<UMenusWidget>(this, MenusWidgetClass);
-			MenusWidgetInstance->AddToViewport();
-			MenusWidgetInstance->TransitionIn();
-		}	
-	});
+		MenusWidgetInstance = CreateWidget<UMenusWidget>(this, MenusWidgetClass);
+		MenusWidgetInstance->AddToViewport();
+		MenusWidgetInstance->TransitionIn();
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Menu widget creating"));
+	}	
 }

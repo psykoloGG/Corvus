@@ -1,5 +1,6 @@
 #include "CorvusPlayerController.h"
 
+#include "CorvusGameInstance.h"
 #include "Blueprint/UserWidget.h"
 #include "Camera/CameraActor.h"
 #include "Menus/MenusWidget.h"
@@ -8,7 +9,9 @@
 void ACorvusPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	UCorvusGameInstance* GameInstance = Cast<UCorvusGameInstance>(GetGameInstance());
+	GameInstance->InitMainUI();
 }
 
 ACorvusPlayerController::ACorvusPlayerController()
