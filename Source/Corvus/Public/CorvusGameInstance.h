@@ -4,6 +4,15 @@
 #include "Engine/GameInstance.h"
 #include "CorvusGameInstance.generated.h"
 
+class AInteractablePuzzle;
+
+UENUM()
+enum class EPuzzleType
+{
+    EnterCode,
+	UseItem
+};
+
 class AInteractable;
 /**
  * 
@@ -18,6 +27,9 @@ public:
 	
 	UFUNCTION()
 	void OpenObjectViewer(const AInteractable* Interactable);
+	
+	UFUNCTION()
+	void OpenPuzzleViewer(const EPuzzleType PuzzleType, AInteractablePuzzle* Interactable);
 
 	UFUNCTION()
 	void TriggerLevelWin();
@@ -31,6 +43,13 @@ private:
 	
 	UPROPERTY()
 	class UObjectViewerWidget* ObjectViewerWidgetInstance = nullptr;
+
+	// Need a way to streamline puzzles and then differentiate within (for demo leave as is)
+	UPROPERTY()
+	TSubclassOf<UUserWidget> CodePuzzleWidgetClass;
+
+	UPROPERTY()
+	class UCodePuzzleWidget* CodePuzzleWidgetInstance = nullptr;
 
 	UPROPERTY()
 	TSubclassOf<UUserWidget> MenusWidgetClass;

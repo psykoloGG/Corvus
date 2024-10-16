@@ -1,6 +1,8 @@
 #include "CorvusGameInstance.h"
 
+#include "CodePuzzleWidget.h"
 #include "Blueprint/UserWidget.h"
+#include "Interactables/InteractablePuzzle.h"
 #include "Menus/MenusWidget.h"
 #include "ObjectViewer/ObjectViewerWidget.h"
 
@@ -17,6 +19,12 @@ UCorvusGameInstance::UCorvusGameInstance()
 	{
 		MenusWidgetClass = MenusWidgetClassFinder.Class;
 	}
+
+	static ConstructorHelpers::FClassFinder<UCodePuzzleWidget> CodePuzzleWidgetClassFinder(TEXT("/Game/UI/Puzzles/WBP_CodePuzzle"));
+	if (CodePuzzleWidgetClassFinder.Succeeded())
+	{
+		CodePuzzleWidgetClass = CodePuzzleWidgetClassFinder.Class;
+	}
 }
 
 void UCorvusGameInstance::OpenObjectViewer(const AInteractable* Interactable)
@@ -28,6 +36,19 @@ void UCorvusGameInstance::OpenObjectViewer(const AInteractable* Interactable)
 		if (ObjectViewerWidgetInstance)
 		{
 			ObjectViewerWidgetInstance->AddToViewport();
+		}
+	}
+}
+
+void UCorvusGameInstance::OpenPuzzleViewer(const EPuzzleType PuzzleType, AInteractablePuzzle* Interactable)
+{
+	if (CodePuzzleWidgetClass)
+	{
+		CodePuzzleWidgetInstance = CreateWidget<UCodePuzzleWidget>(this, CodePuzzleWidgetClass);
+		CodePuzzleWidgetInstance->InteractablePuzzle = Interactable;
+		if (CodePuzzleWidgetInstance)
+		{
+			CodePuzzleWidgetInstance->AddToViewport();
 		}
 	}
 }
@@ -44,7 +65,7 @@ void UCorvusGameInstance::Init()
 {
 	Super::Init();
 
-	/*UGameViewportClient::OnViewportCreated().AddLambda([this]()
+	UGameViewportClient::OnViewportCreated().AddLambda([this]()
 	{
 		if (!MenusWidgetInstance && MenusWidgetClass)
 		{
@@ -53,5 +74,5 @@ void UCorvusGameInstance::Init()
 			MenusWidgetInstance->AddToViewport();
 			MenusWidgetInstance->TransitionIn();
 		}	
-	});*/
+	});
 }

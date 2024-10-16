@@ -28,13 +28,14 @@ private:
 	UPROPERTY()
 	FVector2D PreviousMousePosition;
 
-	UPROPERTY()
-	class AViewableObject* ViewableObj;
 
 	UPROPERTY()
 	float SizeFactor = 1.0f;
 	
 public:
+	UPROPERTY(BlueprintReadWrite)
+	class AViewableObject* ViewableObj;
+	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	const AInteractable* InteractableObject;
 };
